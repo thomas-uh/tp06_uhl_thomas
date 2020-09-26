@@ -1,4 +1,4 @@
 <app-header></app-header>
 <app-account-creation-form *ngIf="account == null" (accountCreated)="onAccountCreated($event)"></app-account-creation-form>
-<app-account-details *ngIf="account != null" [account]="account"></app-account-details>
+<app-account-details *ngIf="account != null" [account]="account" (accountDeleted)="onAccountDeleted($event)"></app-account-details>
 <app-footer></app-footer>

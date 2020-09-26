@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.phoneNumberValidator = exports.zipCodeValidator = exports.noCharacterValidator = exports.noNumberValidator = exports.AccountCreationFormComponent = void 0;
+exports.phoneNumberValidator = exports.zipCodeValidator = exports.noNumberValidator = exports.AccountCreationFormComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var Account_1 = require("./../../models/Account");
@@ -92,7 +92,7 @@ var AccountCreationFormComponent = /** @class */ (function () {
         if (!this.accountForm.valid) {
             return;
         }
-        var address = new Address_1.Address(this.accountForm.value.street, this.accountForm.value.zipCode, this.accountForm.value.city);
+        var address = new Address_1.Address(this.accountForm.value.street, this.accountForm.value.zipCode, this.accountForm.value.city, this.accountForm.value.country);
         var account = new Account_1.Account(this.accountForm.value.lastName, this.accountForm.value.firstName, this.accountForm.value.civility, address, this.accountForm.value.phone, this.accountForm.value.email, this.accountForm.value.login, this.accountForm.value.password);
         this.accountCreated.emit(account);
     };
@@ -110,15 +110,10 @@ var AccountCreationFormComponent = /** @class */ (function () {
 }());
 exports.AccountCreationFormComponent = AccountCreationFormComponent;
 function noNumberValidator(control) {
-    var regex = /^[a-zA-Z]*$/;
+    var regex = /^[a-zA-Z\s]*$/;
     return regex.test(control.value) ? null : { number: true };
 }
 exports.noNumberValidator = noNumberValidator;
-function noCharacterValidator(control) {
-    var regex = /^[0-9]*$/;
-    return regex.test(control.value) ? null : { character: true };
-}
-exports.noCharacterValidator = noCharacterValidator;
 function zipCodeValidator(control) {
     var regex = /^[0-9]{5}$/;
     return regex.test(control.value) ? null : { zipcode: true };

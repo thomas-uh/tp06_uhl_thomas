@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Account } from './../../models/Account';
 import { Address } from './../../models/Address';
 
@@ -9,6 +9,12 @@ import { Address } from './../../models/Address';
 })
 export class AccountDetailsComponent {
   @Input() account: Account;
+  @Output() accountDeleted = new EventEmitter<Account>();
+
   constructor() { }
+
+  public onClick($event: Account): void {
+    this.accountDeleted.emit(this.account);
+  }
 
 }

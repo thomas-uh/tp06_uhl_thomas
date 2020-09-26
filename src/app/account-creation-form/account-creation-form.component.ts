@@ -51,7 +51,8 @@ export class AccountCreationFormComponent {
     const address: Address = new Address(
       this.accountForm.value.street,
       this.accountForm.value.zipCode,
-      this.accountForm.value.city
+      this.accountForm.value.city,
+      this.accountForm.value.country
     );
 
     const account: Account = new Account(
@@ -70,13 +71,8 @@ export class AccountCreationFormComponent {
 }
 
 export function noNumberValidator(control: AbstractControl): { [key: string]: boolean } | null {
-  const regex: RegExp = /^[a-zA-Z]*$/;
+  const regex: RegExp = /^[a-zA-Z\s]*$/;
   return regex.test(control.value) ? null : { number: true };
-}
-
-export function noCharacterValidator(control: AbstractControl): { [key: string]: boolean } | null {
-  const regex: RegExp = /^[0-9]*$/;
-  return regex.test(control.value) ? null : { character: true };
 }
 
 export function zipCodeValidator(control: AbstractControl): { [key: string]: boolean } | null {

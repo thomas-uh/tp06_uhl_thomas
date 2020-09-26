@@ -8,7 +8,7 @@ import { AccountCreationFormComponent } from './account-creation-form/account-cr
 import { AccountDetailsComponent } from './account-details/account-details.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { CustomDirectives } from 'src/directives/custom-directives.module';
+import { CustomDirectives } from '../directives/custom-directives.module';
 
 @NgModule({
   declarations: [
