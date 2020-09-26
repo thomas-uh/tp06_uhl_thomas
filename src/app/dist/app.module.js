@@ -16,7 +16,6 @@ var account_creation_form_component_1 = require("./account-creation-form/account
 var account_details_component_1 = require("./account-details/account-details.component");
 var header_component_1 = require("./header/header.component");
 var footer_component_1 = require("./footer/footer.component");
-var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var custom_directives_module_1 = require("src/directives/custom-directives.module");
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -32,7 +31,6 @@ var AppModule = /** @class */ (function () {
             ],
             imports: [
                 platform_browser_1.BrowserModule,
-                ng_bootstrap_1.NgbModule,
                 forms_1.FormsModule,
                 forms_1.ReactiveFormsModule,
                 custom_pipes_module_1.CustomPipes,
