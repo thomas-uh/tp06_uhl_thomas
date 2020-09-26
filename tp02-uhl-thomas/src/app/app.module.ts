@@ -1,6 +1,7 @@
+import { CustomPipes } from '../pipes/custom-pipes.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AccountCreationFormComponent } from './account-creation-form/account-creation-form.component';
@@ -8,6 +9,7 @@ import { AccountDetailsComponent } from './account-details/account-details.compo
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CustomDirectives } from 'src/directives/custom-directives.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     BrowserModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    CustomPipes,
+    CustomDirectives
   ],
   providers: [],
   bootstrap: [AppComponent]

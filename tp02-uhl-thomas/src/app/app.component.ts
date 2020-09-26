@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Account } from './../models/Account';
+import { Address } from './../models/Address';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'tp02-uhl-thomas';
+
+  public account: Account = null;
+
+  public onAccountCreated($event: Account): void {
+    this.account = $event;
+  }
 }
