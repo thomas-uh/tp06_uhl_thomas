@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.CustomDirectives = void 0;
+var showValidationError_directive_1 = require("./showValidationError.directive");
 var core_1 = require("@angular/core");
 var field_match_directive_1 = require("./field-match.directive");
 var CustomDirectives = /** @class */ (function () {
@@ -16,9 +17,11 @@ var CustomDirectives = /** @class */ (function () {
         core_1.NgModule({
             declarations: [
                 field_match_directive_1.FieldMatchDirective,
+                showValidationError_directive_1.ValidationErrorDirective
             ],
             exports: [
                 field_match_directive_1.FieldMatchDirective,
+                showValidationError_directive_1.ValidationErrorDirective
             ]
         })
     ], CustomDirectives);
