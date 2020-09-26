@@ -8,8 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.AppComponent = void 0;
 var core_1 = require("@angular/core");
-var Account_1 = require("./../models/Account");
-var Address_1 = require("./../models/Address");
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
         this.title = 'tp02-uhl-thomas';
@@ -19,10 +17,6 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.onAccountDeleted = function ($event) {
         this.account = null;
-    };
-    AppComponent.prototype.ngOnInit = function () {
-        var address = new Address_1.Address('12 Banana st.', '12345', 'Banana city', 'Banana Island');
-        this.account = new Account_1.Account('Doe', 'John', 'Monsieur', address, '+33 1 22 33 44 55', 'john.doe@banana.com', 'the login', 'the password');
     };
     AppComponent = __decorate([
         core_1.Component({
