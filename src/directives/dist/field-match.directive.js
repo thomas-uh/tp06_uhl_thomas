@@ -16,12 +16,18 @@ var FieldMatchDirective = /** @class */ (function () {
     }
     FieldMatchDirective_1 = FieldMatchDirective;
     FieldMatchDirective.prototype.validate = function (control) {
-        return this.fieldToMatch.value === control.value ? null : { fieldnotmatching: true };
+        return this.valueToMatch === control.value ? null : { fieldnotmatching: true };
+    };
+    FieldMatchDirective.prototype.ngOnChanges = function (changes) {
+        this.field.updateValueAndValidity();
     };
     var FieldMatchDirective_1;
     __decorate([
         core_1.Input('appFieldMatch')
-    ], FieldMatchDirective.prototype, "fieldToMatch");
+    ], FieldMatchDirective.prototype, "valueToMatch");
+    __decorate([
+        core_1.Input()
+    ], FieldMatchDirective.prototype, "field");
     FieldMatchDirective = FieldMatchDirective_1 = __decorate([
         core_1.Directive({
             selector: '[appFieldMatch]',

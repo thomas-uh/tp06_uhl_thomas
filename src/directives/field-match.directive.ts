@@ -1,14 +1,16 @@
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
+
+import { Directive, ElementRef, Host, HostListener, Input, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
+import { AbstractControl, NG_VALIDATORS, Validator } from '@angular/forms';
 
 @Directive({
     selector: '[appFieldMatch]',
     providers: [{provide: NG_VALIDATORS, useExisting: FieldMatchDirective, multi: true}]
 })
 
-export class FieldMatchDirective implements Validator{
+export class FieldMatchDirective implements Validator, OnChanges {
 
-    @Input('appFieldMatch') fieldToMatch: AbstractControl;
+    @Input('appFieldMatch') valueToMatch: string;
+    @Input() field: AbstractControl;
 
     private el: ElementRef;
     private renderer: Renderer2;
@@ -18,6 +20,10 @@ export class FieldMatchDirective implements Validator{
         this.renderer = renderer;
     }
     validate(control: AbstractControl): { [key: string]: boolean } | null {
-        return this.fieldToMatch.value === control.value ? null : { fieldnotmatching: true };
+        return this.valueToMatch === control.value ? null : { fieldnotmatching: true };
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.field.updateValueAndValidity();
     }
 }
