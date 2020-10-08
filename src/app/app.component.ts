@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Account } from './../models/Account';
-import { Address } from './../models/Address';
 
 @Component({
   selector: 'app-root',

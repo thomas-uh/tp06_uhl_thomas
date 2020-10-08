@@ -11,6 +11,7 @@ var custom_pipes_module_1 = require("../pipes/custom-pipes.module");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var http_1 = require("@angular/common/http");
 var app_component_1 = require("./app.component");
 var account_creation_form_component_1 = require("./account-creation-form/account-creation-form.component");
 var account_details_component_1 = require("./account-details/account-details.component");
@@ -34,7 +35,8 @@ var AppModule = /** @class */ (function () {
                 forms_1.FormsModule,
                 forms_1.ReactiveFormsModule,
                 custom_pipes_module_1.CustomPipes,
-                custom_directives_module_1.CustomDirectives
+                custom_directives_module_1.CustomDirectives,
+                http_1.HttpClientModule
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]

@@ -1,0 +1,23 @@
+<section class="container my-4">
+    <h2>Liste des produits</h2>
+    <app-product-filter [products]="products" (filterEvent)="onFilterEvent($event)"></app-product-filter>    
+    <div class="accordion">
+        <div *ngFor="let product of renderedProducts">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <span class="btn btn-block text-left">
+                            {{product.name}} - {{product.price}}
+                        </span>
+                    </h2>
+                </div>
+            
+                <div id="{{product.name}}" class="collapse show">
+                    <div class="card-body">
+                        {{product.description}}
+                    </div>
+                </div>
+              </div>
+        </div>  
+      </div>
+</section>
