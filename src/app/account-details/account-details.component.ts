@@ -9,7 +9,7 @@ import { Address } from './../../models/Address';
 })
 export class AccountDetailsComponent {
   @Input() account: Account;
-  @Output() accountDeleted = new EventEmitter<Account>();
+  @Output() accountDeleted: EventEmitter<Account> = new EventEmitter<Account>();
 
   constructor() { }
 

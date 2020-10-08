@@ -9,7 +9,7 @@ import { Address } from './../../models/Address';
   styleUrls: ['./account-creation-form.component.scss']
 })
 export class AccountCreationFormComponent {
-  @Output() accountCreated = new EventEmitter<Account>();
+  @Output() accountCreated: EventEmitter<Account> = new EventEmitter<Account>();
 
   public genders: string[] = [
     'Madame',
