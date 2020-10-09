@@ -6,21 +6,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.ProductService = void 0;
-var environment_prod_1 = require("./../environments/environment.prod");
+exports.ProductPriceLEFilterPipe = void 0;
 var core_1 = require("@angular/core");
-var ProductService = /** @class */ (function () {
-    function ProductService(http) {
-        this.http = http;
+var ProductPriceLEFilterPipe = /** @class */ (function () {
+    function ProductPriceLEFilterPipe() {
     }
-    ProductService.prototype.getProducts = function () {
-        return this.http.get(environment_prod_1.environment.backendClient);
+    ProductPriceLEFilterPipe.prototype.transform = function (products, price) {
+        if (price === -1 || price === null) {
+            return products;
+        }
+        return products.filter(function (product) {
+            return product.price <= price;
+        });
     };
-    ProductService = __decorate([
-        core_1.Injectable({
-            providedIn: 'root'
+    ProductPriceLEFilterPipe = __decorate([
+        core_1.Pipe({
+            name: 'productPriceLEFilter'
         })
-    ], ProductService);
-    return ProductService;
+    ], ProductPriceLEFilterPipe);
+    return ProductPriceLEFilterPipe;
 }());
-exports.ProductService = ProductService;
+exports.ProductPriceLEFilterPipe = ProductPriceLEFilterPipe;

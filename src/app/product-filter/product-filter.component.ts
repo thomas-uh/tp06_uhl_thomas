@@ -11,32 +11,18 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./product-filter.component.scss']
 })
 export class ProductFilterComponent implements OnInit {
-  @Input() products: Array<Product>;
-  @Output() filterEvent: EventEmitter<Product[]> = new EventEmitter<Product[]>();
+  @Output() filterEvent: EventEmitter<Observable<any>> = new EventEmitter<Observable<any>>();
 
   filterForm = new FormGroup({
     nameFilter: new FormControl(''),
-    priceFilter: new FormControl('')
+    priceFilterLE: new FormControl(''),
+    priceFilterGE: new FormControl('')
   });
 
 
   constructor() { }
 
   ngOnInit(): void {
-    this.filterForm.valueChanges.subscribe(filterValues => {
-      let productsFiltered: Product[] = [];
-
-      from(this.products).pipe(
-        filter(
-          item =>
-            item.name.includes(filterValues.nameFilter) &&
-            (filterValues.priceFilter !== '' ? item.price <= filterValues.priceFilter : true)
-        )
-      ).subscribe({
-        next: p => productsFiltered.push(p),
-        error: err => console.error(err),
-        complete: () => this.filterEvent.emit(productsFiltered)
-      });
-    });
+    this.filterEvent.emit(this.filterForm.valueChanges);
   }
 }

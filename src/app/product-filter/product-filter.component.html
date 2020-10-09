@@ -6,9 +6,13 @@
                 <label for="name-filter">Filter par nom</label>
                 <input type="text" class="form-control" id="name-filter" formControlName="nameFilter">
             </div>
-            <div class="form-group col-md-6">
-                <label for="price-filter">Filtrer par prix (prix inférieur à)</label>
-                <input type="text" class="form-control" id="price-filter" formControlName="priceFilter">
+            <div class="form-group col-md-3">
+                <label for="price-filter-le">Filtrer par prix (prix inférieur à)</label>
+                <input type="number" class="form-control" id="price-filter-le" formControlName="priceFilterLE">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="price-filter-ge">Filtrer par prix (prix supérieur à)</label>
+                <input type="number" class="form-control" id="price-filter-ge" formControlName="priceFilterGE">
             </div>
         </div>
     </form>

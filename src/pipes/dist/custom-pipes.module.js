@@ -10,6 +10,8 @@ exports.CustomPipes = void 0;
 var password_pipe_1 = require("./password.pipe");
 var core_1 = require("@angular/core");
 var phone_number_pipe_1 = require("./phone-number.pipe");
+var product_name_filter_pipe_1 = require("./product-name-filter.pipe");
+var product_price_filter_pipe_1 = require("./product-price-filter.pipe");
 var CustomPipes = /** @class */ (function () {
     function CustomPipes() {
     }
@@ -17,11 +19,15 @@ var CustomPipes = /** @class */ (function () {
         core_1.NgModule({
             declarations: [
                 phone_number_pipe_1.PhoneNumberPipe,
-                password_pipe_1.PasswordPipe
+                password_pipe_1.PasswordPipe,
+                product_name_filter_pipe_1.ProductNameFilterPipe,
+                product_price_filter_pipe_1.ProductPriceFilterPipe
             ],
             exports: [
                 phone_number_pipe_1.PhoneNumberPipe,
-                password_pipe_1.PasswordPipe
+                password_pipe_1.PasswordPipe,
+                product_name_filter_pipe_1.ProductNameFilterPipe,
+                product_price_filter_pipe_1.ProductPriceFilterPipe
             ]
         })
     ], CustomPipes);

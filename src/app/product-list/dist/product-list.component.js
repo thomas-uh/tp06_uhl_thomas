@@ -11,21 +11,20 @@ var core_1 = require("@angular/core");
 var ProductListComponent = /** @class */ (function () {
     function ProductListComponent(productService) {
         this.productService = productService;
-        this.renderedProducts = [];
+        this.nameFilter = '';
+        this.priceFilterLE = -1;
+        this.priceFilterGE = -1;
     }
     ProductListComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.productService.getProducts().subscribe({
-            next: function (res) {
-                _this.products = JSON.parse(JSON.stringify(res));
-                _this.renderedProducts = _this.products;
-            },
-            error: function (err) { return console.error(err); },
-            complete: function () { }
-        });
+        this.products = this.productService.getProducts();
     };
-    ProductListComponent.prototype.onFilterEvent = function (products) {
-        this.renderedProducts = products;
+    ProductListComponent.prototype.onFilterEvent = function (filters) {
+        var _this = this;
+        filters.subscribe(function (filtersValues) {
+            _this.nameFilter = filtersValues.nameFilter;
+            _this.priceFilterLE = filtersValues.priceFilterLE === '' ? -1 : filtersValues.priceFilterLE;
+            _this.priceFilterGE = filtersValues.priceFilterGE === '' ? -1 : filtersValues.priceFilterGE;
+        });
     };
     ProductListComponent = __decorate([
         core_1.Component({

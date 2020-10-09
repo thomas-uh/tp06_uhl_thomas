@@ -9,33 +9,18 @@ exports.__esModule = true;
 exports.ProductFilterComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var rxjs_1 = require("rxjs");
-var operators_1 = require("rxjs/operators");
 var ProductFilterComponent = /** @class */ (function () {
     function ProductFilterComponent() {
         this.filterEvent = new core_1.EventEmitter();
         this.filterForm = new forms_1.FormGroup({
             nameFilter: new forms_1.FormControl(''),
-            priceFilter: new forms_1.FormControl('')
+            priceFilterLE: new forms_1.FormControl(''),
+            priceFilterGE: new forms_1.FormControl('')
         });
     }
     ProductFilterComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.filterForm.valueChanges.subscribe(function (filterValues) {
-            var productsFiltered = [];
-            rxjs_1.from(_this.products).pipe(operators_1.filter(function (item) {
-                return item.name.includes(filterValues.nameFilter) &&
-                    (filterValues.priceFilter !== '' ? item.price <= filterValues.priceFilter : true);
-            })).subscribe({
-                next: function (p) { return productsFiltered.push(p); },
-                error: function (err) { return console.error(err); },
-                complete: function () { return _this.filterEvent.emit(productsFiltered); }
-            });
-        });
+        this.filterEvent.emit(this.filterForm.valueChanges);
     };
-    __decorate([
-        core_1.Input()
-    ], ProductFilterComponent.prototype, "products");
     __decorate([
         core_1.Output()
     ], ProductFilterComponent.prototype, "filterEvent");
