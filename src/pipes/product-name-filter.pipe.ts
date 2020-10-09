@@ -1,6 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import { Product } from '../models/Product';
 
 @Pipe({

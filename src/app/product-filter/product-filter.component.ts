@@ -1,9 +1,6 @@
 import { Observable } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Product } from 'src/models/Product';
-import { from } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-filter',
