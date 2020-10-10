@@ -12,7 +12,7 @@ var ProductNameFilterPipe = /** @class */ (function () {
     function ProductNameFilterPipe() {
     }
     ProductNameFilterPipe.prototype.transform = function (products, name) {
-        if (name.length === 0) {
+        if (name === null || name.length === 0) {
             return products;
         }
         return products.filter(function (product) {

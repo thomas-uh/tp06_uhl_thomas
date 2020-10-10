@@ -7,7 +7,7 @@ import { Product } from '../models/Product';
 export class ProductNameFilterPipe implements PipeTransform {
 
     transform(products: Product[], name: string): Product[] {
-        if (name.length === 0) {
+        if (name === null || name.length === 0) {
             return products;
         }
 

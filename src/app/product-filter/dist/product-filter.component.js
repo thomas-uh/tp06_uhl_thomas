@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.ProductFilterComponent = void 0;
+var ProductFilter_1 = require("./../../models/ProductFilter");
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var ProductFilterComponent = /** @class */ (function () {
@@ -19,7 +20,13 @@ var ProductFilterComponent = /** @class */ (function () {
         });
     }
     ProductFilterComponent.prototype.ngOnInit = function () {
-        this.filterEvent.emit(this.filterForm.valueChanges);
+        var _this = this;
+        this.filterFormSubscription = this.filterForm.valueChanges.subscribe(function (filters) {
+            _this.filterEvent.emit(new ProductFilter_1.ProductFilter(filters.nameFilter, filters.priceFilterLE === '' ? -1 : filters.priceFilterLE, filters.priceFilterGE === '' ? -1 : filters.priceFilterGE));
+        });
+    };
+    ProductFilterComponent.prototype.ngOnDestroy = function () {
+        this.filterFormSubscription.unsubscribe();
     };
     __decorate([
         core_1.Output()

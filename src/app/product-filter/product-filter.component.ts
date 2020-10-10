@@ -1,5 +1,6 @@
-import { Observable } from 'rxjs';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ProductFilter } from './../../models/ProductFilter';
+import { Subscription } from 'rxjs';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -7,8 +8,8 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './product-filter.component.html',
   styleUrls: ['./product-filter.component.scss']
 })
-export class ProductFilterComponent implements OnInit {
-  @Output() filterEvent: EventEmitter<Observable<any>> = new EventEmitter<Observable<any>>();
+export class ProductFilterComponent implements OnInit, OnDestroy {
+  @Output() filterEvent: EventEmitter<ProductFilter> = new EventEmitter<ProductFilter>();
 
   filterForm = new FormGroup({
     nameFilter: new FormControl(''),
@@ -16,10 +17,23 @@ export class ProductFilterComponent implements OnInit {
     priceFilterGE: new FormControl('')
   });
 
+  private filterFormSubscription: Subscription;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.filterEvent.emit(this.filterForm.valueChanges);
+    this.filterFormSubscription = this.filterForm.valueChanges.subscribe(filters => {
+      this.filterEvent.emit(
+        new ProductFilter(
+          filters.nameFilter,
+          filters.priceFilterLE === '' ? -1 : filters.priceFilterLE,
+          filters.priceFilterGE === '' ? -1 : filters.priceFilterGE
+        )
+      );
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.filterFormSubscription.unsubscribe();
   }
 }

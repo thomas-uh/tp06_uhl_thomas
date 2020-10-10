@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/Product';
 import { ProductService } from '../product.service';
+import { ProductFilter } from '../../models/ProductFilter';
 
 @Component({
   selector: 'app-product-list',
@@ -21,11 +22,9 @@ export class ProductListComponent implements OnInit {
     this.products = this.productService.getProducts();
   }
 
-  public onFilterEvent(filters: Observable<any>): void {
-    filters.subscribe(filtersValues => {
-      this.nameFilter = filtersValues.nameFilter;
-      this.priceFilterLE = filtersValues.priceFilterLE === '' ? -1 : filtersValues.priceFilterLE;
-      this.priceFilterGE = filtersValues.priceFilterGE === '' ? -1 : filtersValues.priceFilterGE;
-    });
+  public onFilterEvent(filters: ProductFilter): void {
+    this.nameFilter = filters.nameFilter;
+    this.priceFilterLE = filters.priceLEFilter;
+    this.priceFilterGE = filters.priceGEFilter;
   }
 }

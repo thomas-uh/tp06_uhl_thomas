@@ -19,12 +19,9 @@ var ProductListComponent = /** @class */ (function () {
         this.products = this.productService.getProducts();
     };
     ProductListComponent.prototype.onFilterEvent = function (filters) {
-        var _this = this;
-        filters.subscribe(function (filtersValues) {
-            _this.nameFilter = filtersValues.nameFilter;
-            _this.priceFilterLE = filtersValues.priceFilterLE === '' ? -1 : filtersValues.priceFilterLE;
-            _this.priceFilterGE = filtersValues.priceFilterGE === '' ? -1 : filtersValues.priceFilterGE;
-        });
+        this.nameFilter = filters.nameFilter;
+        this.priceFilterLE = filters.priceLEFilter;
+        this.priceFilterGE = filters.priceGEFilter;
     };
     ProductListComponent = __decorate([
         core_1.Component({
