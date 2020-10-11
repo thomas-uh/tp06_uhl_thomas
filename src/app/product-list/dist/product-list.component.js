@@ -14,9 +14,6 @@ var ProductFilter_1 = require("../../models/ProductFilter");
 var ProductListComponent = /** @class */ (function () {
     function ProductListComponent(productService) {
         this.productService = productService;
-        this.nameFilter = '';
-        this.priceFilterLE = -1;
-        this.priceFilterGE = -1;
     }
     ProductListComponent.prototype.ngOnInit = function () {
         this.products = this.productService.getProducts();
@@ -50,9 +47,6 @@ var ProductListComponent = /** @class */ (function () {
         }));
     };
     ProductListComponent.prototype.onFilterEvent = function (filters) {
-        this.nameFilter = filters.nameFilter;
-        this.priceFilterLE = filters.priceLEFilter;
-        this.priceFilterGE = filters.priceGEFilter;
         this.filters.next(filters);
     };
     ProductListComponent = __decorate([

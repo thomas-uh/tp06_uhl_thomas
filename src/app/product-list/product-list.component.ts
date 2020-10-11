@@ -16,10 +16,6 @@ export class ProductListComponent implements OnInit {
   private filters: BehaviorSubject<ProductFilter>;
   public filteredProducts: Observable<Product[]>;
 
-  public nameFilter: string = '';
-  public priceFilterLE: number = -1;
-  public priceFilterGE: number = -1;
-
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
@@ -64,10 +60,6 @@ export class ProductListComponent implements OnInit {
   }
 
   public onFilterEvent(filters: ProductFilter): void {
-    this.nameFilter = filters.nameFilter;
-    this.priceFilterLE = filters.priceLEFilter;
-    this.priceFilterGE = filters.priceGEFilter;
-
     this.filters.next(filters);
   }
 }
