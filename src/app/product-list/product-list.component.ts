@@ -25,7 +25,7 @@ export class ProductListComponent implements OnInit {
 
     this.filteredProducts = combineLatest([this.products, this.filters]).pipe(
       map(
-        ([products, filters]) => {
+        ([products, filters]: [Product[], ProductFilter]): Product[] => {
           return products.filter(product => {
             let nameCondition: boolean;
             let lowerThanPriceCondition: boolean;
