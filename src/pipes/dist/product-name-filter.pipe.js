@@ -9,6 +9,7 @@ exports.__esModule = true;
 exports.ProductNameFilterPipe = void 0;
 var core_1 = require("@angular/core");
 var ProductNameFilterPipe = /** @class */ (function () {
+    // POSSIBILITE MAIS PAS UTILISER CAR ON VEUT EFFECTUER LE FILTRAGE AVEC RXJS
     function ProductNameFilterPipe() {
     }
     ProductNameFilterPipe.prototype.transform = function (products, name) {
@@ -23,6 +24,7 @@ var ProductNameFilterPipe = /** @class */ (function () {
         core_1.Pipe({
             name: 'productNameFilter'
         })
+        // POSSIBILITE MAIS PAS UTILISER CAR ON VEUT EFFECTUER LE FILTRAGE AVEC RXJS
     ], ProductNameFilterPipe);
     return ProductNameFilterPipe;
 }());
