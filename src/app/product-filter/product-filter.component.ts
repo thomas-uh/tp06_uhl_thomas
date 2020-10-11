@@ -26,8 +26,8 @@ export class ProductFilterComponent implements OnInit, OnDestroy {
       this.filterEvent.emit(
         new ProductFilter(
           filters.nameFilter,
-          filters.priceFilterLE === '' ? -1 : filters.priceFilterLE,
-          filters.priceFilterGE === '' ? -1 : filters.priceFilterGE
+          filters.priceFilterLE === '' || filters.priceFilterLE < 0 ? -1 : filters.priceFilterLE,
+          filters.priceFilterGE === '' || filters.priceFilterGE < 0 ? -1 : filters.priceFilterGE
         )
       );
     });

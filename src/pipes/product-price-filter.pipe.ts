@@ -5,7 +5,7 @@ import { Product } from '../models/Product';
     name: 'productPriceFilter'
 })
 
-// POSSIBILITE MAIS PAS UTILISER CAR ON VEUT EFFECTUER LE FILTRAGE AVEC RXJS
+// POSSIBILITE MAIS PAS UTILISE CAR ON VEUT EFFECTUER LE FILTRAGE AVEC RXJS
 export class ProductPriceFilterPipe implements PipeTransform {
 
     transform(products: Product[], priceLE: number, priceGE: number): Product[] {

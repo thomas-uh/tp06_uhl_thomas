@@ -9,7 +9,7 @@ exports.__esModule = true;
 exports.ProductPriceFilterPipe = void 0;
 var core_1 = require("@angular/core");
 var ProductPriceFilterPipe = /** @class */ (function () {
-    // POSSIBILITE MAIS PAS UTILISER CAR ON VEUT EFFECTUER LE FILTRAGE AVEC RXJS
+    // POSSIBILITE MAIS PAS UTILISE CAR ON VEUT EFFECTUER LE FILTRAGE AVEC RXJS
     function ProductPriceFilterPipe() {
     }
     ProductPriceFilterPipe.prototype.transform = function (products, priceLE, priceGE) {
@@ -34,7 +34,7 @@ var ProductPriceFilterPipe = /** @class */ (function () {
         core_1.Pipe({
             name: 'productPriceFilter'
         })
-        // POSSIBILITE MAIS PAS UTILISER CAR ON VEUT EFFECTUER LE FILTRAGE AVEC RXJS
+        // POSSIBILITE MAIS PAS UTILISE CAR ON VEUT EFFECTUER LE FILTRAGE AVEC RXJS
     ], ProductPriceFilterPipe);
     return ProductPriceFilterPipe;
 }());

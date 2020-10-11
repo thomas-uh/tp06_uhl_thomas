@@ -22,7 +22,7 @@ var ProductFilterComponent = /** @class */ (function () {
     ProductFilterComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.filterFormSubscription = this.filterForm.valueChanges.subscribe(function (filters) {
-            _this.filterEvent.emit(new ProductFilter_1.ProductFilter(filters.nameFilter, filters.priceFilterLE === '' ? -1 : filters.priceFilterLE, filters.priceFilterGE === '' ? -1 : filters.priceFilterGE));
+            _this.filterEvent.emit(new ProductFilter_1.ProductFilter(filters.nameFilter, filters.priceFilterLE === '' || filters.priceFilterLE < 0 ? -1 : filters.priceFilterLE, filters.priceFilterGE === '' || filters.priceFilterGE < 0 ? -1 : filters.priceFilterGE));
         });
     };
     ProductFilterComponent.prototype.ngOnDestroy = function () {
