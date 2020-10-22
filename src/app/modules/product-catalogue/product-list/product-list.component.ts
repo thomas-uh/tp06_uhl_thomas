@@ -1,9 +1,9 @@
 import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../models/Product';
+import { Product } from './../Product';
 import { ProductService } from '../product.service';
-import { ProductFilter } from '../../models/ProductFilter';
+import { ProductFilter } from './../ProductFilter';
 
 @Component({
   selector: 'app-product-list',

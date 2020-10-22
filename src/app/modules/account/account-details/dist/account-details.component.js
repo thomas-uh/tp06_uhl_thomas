@@ -10,17 +10,11 @@ exports.AccountDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var AccountDetailsComponent = /** @class */ (function () {
     function AccountDetailsComponent() {
-        this.accountDeleted = new core_1.EventEmitter();
     }
-    AccountDetailsComponent.prototype.onClick = function ($event) {
-        this.accountDeleted.emit(this.account);
+    AccountDetailsComponent.prototype.ngOnInit = function () {
+        this.account = history.state.acc;
+        this.address = this.account.address;
     };
-    __decorate([
-        core_1.Input()
-    ], AccountDetailsComponent.prototype, "account");
-    __decorate([
-        core_1.Output()
-    ], AccountDetailsComponent.prototype, "accountDeleted");
     AccountDetailsComponent = __decorate([
         core_1.Component({
             selector: 'app-account-details',

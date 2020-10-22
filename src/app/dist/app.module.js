@@ -7,17 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppModule = void 0;
+var account_module_1 = require("./modules/account/account.module");
 var custom_pipes_module_1 = require("../pipes/custom-pipes.module");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/common/http");
 var app_component_1 = require("./app.component");
-var account_creation_form_component_1 = require("./account-creation-form/account-creation-form.component");
-var account_details_component_1 = require("./account-details/account-details.component");
 var header_component_1 = require("./header/header.component");
 var footer_component_1 = require("./footer/footer.component");
 var custom_directives_module_1 = require("../directives/custom-directives.module");
+var app_routing_module_1 = require("./app-routing.module");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -25,8 +25,6 @@ var AppModule = /** @class */ (function () {
         core_1.NgModule({
             declarations: [
                 app_component_1.AppComponent,
-                account_creation_form_component_1.AccountCreationFormComponent,
-                account_details_component_1.AccountDetailsComponent,
                 header_component_1.HeaderComponent,
                 footer_component_1.FooterComponent,
             ],
@@ -36,7 +34,9 @@ var AppModule = /** @class */ (function () {
                 forms_1.ReactiveFormsModule,
                 custom_pipes_module_1.CustomPipes,
                 custom_directives_module_1.CustomDirectives,
-                http_1.HttpClientModule
+                http_1.HttpClientModule,
+                account_module_1.AccountModule,
+                app_routing_module_1.AppRoutingModule
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]

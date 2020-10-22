@@ -1,14 +1,13 @@
-<section class="container">
+<section class="my-5">
     <h2>Voici les informations du compte enregistré :</h2>
     <div class="account">
         <span class="account-info">Nom : {{account.lastname}}</span>
         <span class="account-info">Prénom : {{account.firstname}}</span>
         <span class="account-info">Civilité : {{account.civility}}</span>
-        <span class="account-info">Adresse : {{account.address}}</span>
+        <span class="account-info">Adresse : {{address.street}} {{address.zipCode}} {{address.city}}, {{address.country}}</span>
         <span class="account-info">Téléphone : {{account.phone}}</span>
         <span class="account-info">Adresse email : {{account.email}}</span>
         <span class="account-info">Identifiant : {{account.login}}</span>
         <span class="account-info">Mot de passe : {{account.password | password}}</span>
     </div>
-    <button type="submit" class="btn btn-primary center" (click)="onClick($event)">Supprimer mon compte</button>
 </section>

@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.ProductFilterComponent = void 0;
-var ProductFilter_1 = require("./../../models/ProductFilter");
+var ProductFilter_1 = require("./../ProductFilter");
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var ProductFilterComponent = /** @class */ (function () {

@@ -1,4 +1,4 @@
-import { ProductFilter } from './../../models/ProductFilter';
+import { ProductFilter } from './../ProductFilter';
 import { Subscription } from 'rxjs';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';

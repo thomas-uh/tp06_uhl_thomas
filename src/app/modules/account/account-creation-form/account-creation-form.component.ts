@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators, ValidatorFn } from '@angular/forms';
-import { Account } from './../../models/Account';
-import { Address } from './../../models/Address';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Account } from '../Account';
+import { Address } from '../Address';
 
 @Component({
   selector: 'app-account-creation-form',
@@ -9,12 +10,12 @@ import { Address } from './../../models/Address';
   styleUrls: ['./account-creation-form.component.scss']
 })
 export class AccountCreationFormComponent {
-  @Output() accountCreated: EventEmitter<Account> = new EventEmitter<Account>();
-
   public genders: string[] = [
     'Madame',
     'Monsieur'
   ];
+
+  constructor(private router: Router) {}
 
   accountForm = new FormGroup({
     lastName: new FormControl('', [Validators.required, noNumberValidator]),
@@ -66,7 +67,11 @@ export class AccountCreationFormComponent {
       this.accountForm.value.password
     );
 
-    this.accountCreated.emit(account);
+    this.router.navigate(['account/view'], {
+      state: {
+        acc: account
+      }
+    });
   }
 }
 

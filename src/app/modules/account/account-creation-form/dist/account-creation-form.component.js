@@ -9,11 +9,11 @@ exports.__esModule = true;
 exports.phoneNumberValidator = exports.zipCodeValidator = exports.noNumberValidator = exports.AccountCreationFormComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var Account_1 = require("./../../models/Account");
-var Address_1 = require("./../../models/Address");
+var Account_1 = require("../Account");
+var Address_1 = require("../Address");
 var AccountCreationFormComponent = /** @class */ (function () {
-    function AccountCreationFormComponent() {
-        this.accountCreated = new core_1.EventEmitter();
+    function AccountCreationFormComponent(router) {
+        this.router = router;
         this.genders = [
             'Madame',
             'Monsieur'
@@ -94,11 +94,12 @@ var AccountCreationFormComponent = /** @class */ (function () {
         }
         var address = new Address_1.Address(this.accountForm.value.street, this.accountForm.value.zipCode, this.accountForm.value.city, this.accountForm.value.country);
         var account = new Account_1.Account(this.accountForm.value.lastName, this.accountForm.value.firstName, this.accountForm.value.civility, address, this.accountForm.value.phone, this.accountForm.value.email, this.accountForm.value.login, this.accountForm.value.password);
-        this.accountCreated.emit(account);
+        this.router.navigate(['account/view'], {
+            state: {
+                acc: account
+            }
+        });
     };
-    __decorate([
-        core_1.Output()
-    ], AccountCreationFormComponent.prototype, "accountCreated");
     AccountCreationFormComponent = __decorate([
         core_1.Component({
             selector: 'app-account-creation-form',

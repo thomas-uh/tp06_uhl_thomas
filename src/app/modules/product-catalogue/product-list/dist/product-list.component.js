@@ -10,7 +10,7 @@ exports.ProductListComponent = void 0;
 var rxjs_1 = require("rxjs");
 var operators_1 = require("rxjs/operators");
 var core_1 = require("@angular/core");
-var ProductFilter_1 = require("../../models/ProductFilter");
+var ProductFilter_1 = require("./../ProductFilter");
 var ProductListComponent = /** @class */ (function () {
     function ProductListComponent(productService) {
         this.productService = productService;
