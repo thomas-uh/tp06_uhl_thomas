@@ -7,18 +7,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.ProductListComponent = void 0;
+var product_state_1 = require("./../states/product-state");
 var rxjs_1 = require("rxjs");
 var operators_1 = require("rxjs/operators");
 var core_1 = require("@angular/core");
 var ProductFilter_1 = require("./../ProductFilter");
+var productCart_action_1 = require("../actions/productCart-action");
 var ProductListComponent = /** @class */ (function () {
-    function ProductListComponent(productService) {
+    function ProductListComponent(productService, store) {
         this.productService = productService;
+        this.store = store;
     }
     ProductListComponent.prototype.ngOnInit = function () {
-        this.products = this.productService.getProducts();
-        this.filters = new rxjs_1.BehaviorSubject(new ProductFilter_1.ProductFilter('', -1, -1));
-        this.filteredProducts = rxjs_1.combineLatest([this.products, this.filters]).pipe(operators_1.map(function (_a) {
+        this.cartSize$ = this.store.select(product_state_1.ProductState.getNbOfProducts);
+        this.products$ = this.productService.getProducts();
+        this.filters$ = new rxjs_1.BehaviorSubject(new ProductFilter_1.ProductFilter('', -1, -1));
+        this.filteredProducts$ = rxjs_1.combineLatest([this.products$, this.filters$]).pipe(operators_1.map(function (_a) {
             var products = _a[0], filters = _a[1];
             return products.filter(function (product) {
                 var nameCondition;
@@ -46,8 +50,11 @@ var ProductListComponent = /** @class */ (function () {
             });
         }));
     };
+    ProductListComponent.prototype.AddToCart = function (product) {
+        this.store.dispatch(new productCart_action_1.AddProductToCart(product));
+    };
     ProductListComponent.prototype.onFilterEvent = function (filters) {
-        this.filters.next(filters);
+        this.filters$.next(filters);
     };
     ProductListComponent = __decorate([
         core_1.Component({

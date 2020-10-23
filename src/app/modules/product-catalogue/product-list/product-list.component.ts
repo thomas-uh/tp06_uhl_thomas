@@ -1,9 +1,12 @@
+import { ProductState } from './../states/product-state';
 import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { Product } from './../Product';
 import { ProductService } from '../product.service';
 import { ProductFilter } from './../ProductFilter';
+import { Store } from '@ngxs/store';
+import { AddProductToCart } from '../actions/productCart-action';
 
 @Component({
   selector: 'app-product-list',
@@ -12,18 +15,21 @@ import { ProductFilter } from './../ProductFilter';
 })
 export class ProductListComponent implements OnInit {
 
-  public products: Observable<Product[]>;
-  private filters: BehaviorSubject<ProductFilter>;
-  public filteredProducts: Observable<Product[]>;
+  public products$: Observable<Product[]>;
+  private filters$: BehaviorSubject<ProductFilter>;
+  public filteredProducts$: Observable<Product[]>;
+  public cartSize$: Observable<number>;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private store: Store) { }
 
   ngOnInit(): void {
-    this.products = this.productService.getProducts();
+    this.cartSize$ = this.store.select(ProductState.getNbOfProducts);
 
-    this.filters = new BehaviorSubject(new ProductFilter('', -1, -1));
+    this.products$ = this.productService.getProducts();
 
-    this.filteredProducts = combineLatest([this.products, this.filters]).pipe(
+    this.filters$ = new BehaviorSubject(new ProductFilter('', -1, -1));
+
+    this.filteredProducts$ = combineLatest([this.products$, this.filters$]).pipe(
       map(
         ([products, filters]: [Product[], ProductFilter]): Product[] => {
           return products.filter(product => {
@@ -59,7 +65,11 @@ export class ProductListComponent implements OnInit {
     );
   }
 
+  private AddToCart(product: Product): void {
+    this.store.dispatch(new AddProductToCart(product));
+  }
+
   public onFilterEvent(filters: ProductFilter): void {
-    this.filters.next(filters);
+    this.filters$.next(filters);
   }
 }

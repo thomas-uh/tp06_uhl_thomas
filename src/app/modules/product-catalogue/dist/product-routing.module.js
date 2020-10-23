@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.ProductComponentRoutingModule = void 0;
+var product_cart_component_1 = require("./product-cart/product-cart.component");
 var product_list_component_1 = require("./product-list/product-list.component");
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
@@ -14,6 +15,10 @@ var routes = [
     {
         path: 'list',
         component: product_list_component_1.ProductListComponent
+    },
+    {
+        path: 'cart',
+        component: product_cart_component_1.ProductCartComponent
     },
 ];
 var ProductComponentRoutingModule = /** @class */ (function () {
