@@ -11,8 +11,8 @@ var rxjs_1 = require("rxjs");
 var operators_1 = require("rxjs/operators");
 var core_1 = require("@angular/core");
 var productCart_action_1 = require("../../../shared/actions/productCart-action");
-var ProductFilter_1 = require("src/app/shared/ProductFilter");
-var product_state_1 = require("src/app/shared/states/product-state");
+var ProductFilter_1 = require("./../../../shared/ProductFilter");
+var product_state_1 = require("./../../../shared/states/product-state");
 var ProductListComponent = /** @class */ (function () {
     function ProductListComponent(productService, store) {
         this.productService = productService;

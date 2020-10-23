@@ -4,9 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Store } from '@ngxs/store';
 import { AddProductToCart } from '../../../shared/actions/productCart-action';
-import { Product } from 'src/app/shared/Product';
-import { ProductFilter } from 'src/app/shared/ProductFilter';
-import { ProductState } from 'src/app/shared/states/product-state';
+import { Product } from './../../../shared/Product';
+import { ProductFilter } from './../../../shared/ProductFilter';
+import { ProductState } from './../../../shared/states/product-state';
 
 @Component({
   selector: 'app-product-list',

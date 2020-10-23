@@ -4,7 +4,7 @@ import { AccountDetailsComponent } from './account-details/account-details.compo
 import { AccountCreationFormComponent } from './account-creation-form/account-creation-form.component';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CustomPipes } from 'src/pipes/custom-pipes.module';
+import { CustomPipes } from './../../../pipes/custom-pipes.module';
 import { AccountComponentRoutingModule } from './account-routing.module';
 
 

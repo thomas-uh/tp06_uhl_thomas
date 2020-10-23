@@ -13,7 +13,7 @@ var account_details_component_1 = require("./account-details/account-details.com
 var account_creation_form_component_1 = require("./account-creation-form/account-creation-form.component");
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var custom_pipes_module_1 = require("src/pipes/custom-pipes.module");
+var custom_pipes_module_1 = require("./../../../pipes/custom-pipes.module");
 var account_routing_module_1 = require("./account-routing.module");
 var AccountModule = /** @class */ (function () {
     function AccountModule() {

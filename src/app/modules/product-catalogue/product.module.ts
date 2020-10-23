@@ -4,7 +4,7 @@ import { ProductFilterComponent } from './product-filter/product-filter.componen
 import { CustomDirectives } from './../../../directives/custom-directives.module';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CustomPipes } from 'src/pipes/custom-pipes.module';
+import { CustomPipes } from './../../../pipes/custom-pipes.module';
 import { ProductComponentRoutingModule } from './product-routing.module';
 import { CommonModule } from '@angular/common';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
