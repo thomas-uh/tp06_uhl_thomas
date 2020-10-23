@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppRoutingModule = void 0;
+var home_component_1 = require("./home/home.component");
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
@@ -22,6 +23,14 @@ var routes = [
         loadChildren: function () {
             return Promise.resolve().then(function () { return require('./modules/product-catalogue/product.module'); }).then(function (m) { return m.ProductModule; });
         }
+    },
+    {
+        path: '',
+        component: home_component_1.HomeComponent
+    },
+    {
+        path: '**',
+        component: home_component_1.HomeComponent
     }
 ];
 var AppRoutingModule = /** @class */ (function () {

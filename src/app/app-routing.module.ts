@@ -1,3 +1,4 @@
+import { HomeComponent } from './home/home.component';
 import { ProductModule } from './modules/product-catalogue/product.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,6 +18,14 @@ const routes: Routes = [
       import('./modules/product-catalogue/product.module').then(
         m => m.ProductModule
       )
+  },
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: '**',
+    component: HomeComponent
   }
 ];
 

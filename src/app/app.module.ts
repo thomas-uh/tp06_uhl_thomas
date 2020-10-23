@@ -12,12 +12,14 @@ import { CustomDirectives } from '../directives/custom-directives.module';
 import { AppRoutingModule } from './app-routing.module';
 import { ProductState } from './shared/states/product-state';
 import { NgxsModule } from '@ngxs/store';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
