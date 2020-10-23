@@ -10,6 +10,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { CustomDirectives } from '../directives/custom-directives.module';
 import { AppRoutingModule } from './app-routing.module';
+import { ProductState } from './shared/states/product-state';
+import { NgxsModule } from '@ngxs/store';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { AppRoutingModule } from './app-routing.module';
     CustomDirectives,
     HttpClientModule,
     AccountModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxsModule.forRoot([ProductState])
   ],
   providers: [],
   bootstrap: [AppComponent]

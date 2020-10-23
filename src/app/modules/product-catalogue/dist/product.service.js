@@ -9,12 +9,18 @@ exports.__esModule = true;
 exports.ProductService = void 0;
 var environment_prod_1 = require("../../../environments/environment.prod");
 var core_1 = require("@angular/core");
+var operators_1 = require("rxjs/operators");
 var ProductService = /** @class */ (function () {
     function ProductService(http) {
         this.http = http;
     }
     ProductService.prototype.getProducts = function () {
         return this.http.get(environment_prod_1.environment.backendClient);
+    };
+    ProductService.prototype.getProduct = function (name) {
+        return this.getProducts().pipe(operators_1.map(function (products) {
+            return products.find(function (p) { return p.name === name; });
+        }));
     };
     ProductService = __decorate([
         core_1.Injectable({

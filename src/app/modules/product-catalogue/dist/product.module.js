@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.ProductModule = void 0;
 var product_cart_component_1 = require("./product-cart/product-cart.component");
-var product_state_1 = require("./states/product-state");
 var product_list_component_1 = require("./product-list/product-list.component");
 var product_filter_component_1 = require("./product-filter/product-filter.component");
 var custom_directives_module_1 = require("./../../../directives/custom-directives.module");
@@ -17,7 +16,7 @@ var forms_1 = require("@angular/forms");
 var custom_pipes_module_1 = require("src/pipes/custom-pipes.module");
 var product_routing_module_1 = require("./product-routing.module");
 var common_1 = require("@angular/common");
-var store_1 = require("@ngxs/store");
+var product_detail_component_1 = require("./product-detail/product-detail.component");
 var ProductModule = /** @class */ (function () {
     function ProductModule() {
     }
@@ -27,6 +26,7 @@ var ProductModule = /** @class */ (function () {
                 product_filter_component_1.ProductFilterComponent,
                 product_list_component_1.ProductListComponent,
                 product_cart_component_1.ProductCartComponent,
+                product_detail_component_1.ProductDetailComponent
             ],
             imports: [
                 common_1.CommonModule,
@@ -35,7 +35,6 @@ var ProductModule = /** @class */ (function () {
                 custom_pipes_module_1.CustomPipes,
                 custom_directives_module_1.CustomDirectives,
                 product_routing_module_1.ProductComponentRoutingModule,
-                store_1.NgxsModule.forRoot([product_state_1.ProductState])
             ]
         })
     ], ProductModule);

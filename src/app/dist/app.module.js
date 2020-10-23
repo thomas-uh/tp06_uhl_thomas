@@ -18,6 +18,8 @@ var header_component_1 = require("./header/header.component");
 var footer_component_1 = require("./footer/footer.component");
 var custom_directives_module_1 = require("../directives/custom-directives.module");
 var app_routing_module_1 = require("./app-routing.module");
+var product_state_1 = require("./shared/states/product-state");
+var store_1 = require("@ngxs/store");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -36,7 +38,8 @@ var AppModule = /** @class */ (function () {
                 custom_directives_module_1.CustomDirectives,
                 http_1.HttpClientModule,
                 account_module_1.AccountModule,
-                app_routing_module_1.AppRoutingModule
+                app_routing_module_1.AppRoutingModule,
+                store_1.NgxsModule.forRoot([product_state_1.ProductState])
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]

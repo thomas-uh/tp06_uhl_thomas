@@ -21,7 +21,7 @@
               <a class="nav-link" routerLink="/product/list" routerLinkActive="active">Catalogue de produit</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLink="/product/cart" routerLinkActive="active">Panier</a>
+              <a class="nav-link" routerLink="/product/cart" routerLinkActive="active">Panier ({{ cartSize$ | async }} éléments)</a>
             </li>
           </ul>
         </div>

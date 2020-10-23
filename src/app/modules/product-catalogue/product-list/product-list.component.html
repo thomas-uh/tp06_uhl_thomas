@@ -7,11 +7,15 @@
     <h3>Nombre de produits dans le panier : {{cartSize$ | async}}</h3>
 
     <div class="card my-2" *ngFor="let product of filteredProducts$ | async">
+        
         <div class="card-header">
-            {{product.name}} 
-            <span class="badge badge-primary">{{product.price}} €</span>
+            <a [routerLink]="['/product/detail', product.name]">
+                {{product.name}} 
+                <span class="badge badge-primary">{{product.price}} €</span>
+            </a>
             <button type="button" class="btn btn-primary" style="float: right;" (click)="AddToCart(product)">Ajouter au Panier</button>
         </div>
+        
     </div>
 
     

@@ -1,10 +1,9 @@
-import { CartItem } from './../CartItem';
-import { ClearCart, RemoveOneUnit, RemoveFromCart } from './../actions/productCart-action';
+import { CartItem } from '../../../shared/CartItem';
+import { ClearCart, RemoveOneUnit, RemoveFromCart } from '../../../shared/actions/productCart-action';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Product } from '../Product';
-import { ProductState } from '../states/product-state';
+import { ProductState } from '../../../shared/states/product-state';
 
 @Component({
   selector: 'app-product-cart',

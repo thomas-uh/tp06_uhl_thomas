@@ -7,12 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.ProductListComponent = void 0;
-var product_state_1 = require("./../states/product-state");
 var rxjs_1 = require("rxjs");
 var operators_1 = require("rxjs/operators");
 var core_1 = require("@angular/core");
-var ProductFilter_1 = require("./../ProductFilter");
-var productCart_action_1 = require("../actions/productCart-action");
+var productCart_action_1 = require("../../../shared/actions/productCart-action");
+var ProductFilter_1 = require("src/app/shared/ProductFilter");
+var product_state_1 = require("src/app/shared/states/product-state");
 var ProductListComponent = /** @class */ (function () {
     function ProductListComponent(productService, store) {
         this.productService = productService;

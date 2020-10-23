@@ -1,12 +1,12 @@
-import { ProductState } from './../states/product-state';
 import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
-import { Product } from './../Product';
 import { ProductService } from '../product.service';
-import { ProductFilter } from './../ProductFilter';
 import { Store } from '@ngxs/store';
-import { AddProductToCart } from '../actions/productCart-action';
+import { AddProductToCart } from '../../../shared/actions/productCart-action';
+import { Product } from 'src/app/shared/Product';
+import { ProductFilter } from 'src/app/shared/ProductFilter';
+import { ProductState } from 'src/app/shared/states/product-state';
 
 @Component({
   selector: 'app-product-list',
@@ -65,7 +65,7 @@ export class ProductListComponent implements OnInit {
     );
   }
 
-  private AddToCart(product: Product): void {
+  public AddToCart(product: Product): void {
     this.store.dispatch(new AddProductToCart(product));
   }
 

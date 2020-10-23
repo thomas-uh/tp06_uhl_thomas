@@ -1,8 +1,9 @@
 import { environment } from '../../../environments/environment.prod';
-import { Product } from './Product';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Product } from 'src/app/shared/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +14,15 @@ export class ProductService {
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(environment.backendClient);
+  }
+
+  getProduct(name: string): Observable<Product> {
+    return this.getProducts().pipe(
+      map(
+        (products: Product[]): Product => {
+          return products.find((p) => p.name === name);
+        }
+      )
+    );
   }
 }
