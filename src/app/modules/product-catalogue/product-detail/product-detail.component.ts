@@ -4,7 +4,7 @@ import { ProductService } from '../product.service';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { AddProductToCart } from '../../../shared/actions/productCart-action';
-import { Product } from 'src/app/shared/Product';
+import { Product } from './../../../shared/Product';
 
 @Component({
   selector: 'app-product-detail',

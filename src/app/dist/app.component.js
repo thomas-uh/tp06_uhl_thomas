@@ -12,12 +12,6 @@ var AppComponent = /** @class */ (function () {
     function AppComponent() {
         this.title = 'tp02-uhl-thomas';
     }
-    AppComponent.prototype.onAccountCreated = function ($event) {
-        this.account = $event;
-    };
-    AppComponent.prototype.onAccountDeleted = function ($event) {
-        this.account = null;
-    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'app-root',

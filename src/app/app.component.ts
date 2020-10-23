@@ -7,14 +7,4 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent {
   title = 'tp02-uhl-thomas';
-
-  public account: Account;
-
-  public onAccountCreated($event: Account): void {
-    this.account = $event;
-  }
-
-  public onAccountDeleted($event: Account): void {
-    this.account = null;
-  }
 }
