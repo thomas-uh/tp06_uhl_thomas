@@ -1,10 +1,13 @@
 import { HomeComponent } from './home/home.component';
-import { ProductModule } from './modules/product-catalogue/product.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
   {
     path: 'account',
     loadChildren: () =>
@@ -20,13 +23,9 @@ const routes: Routes = [
       )
   },
   {
-    path: '',
-    component: HomeComponent
-  },
-  {
     path: '**',
     component: HomeComponent
-  }
+  },
 ];
 
 @NgModule({

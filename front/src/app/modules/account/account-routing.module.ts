@@ -8,7 +8,7 @@ import { AccountDetailsComponent } from './account-details/account-details.compo
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'main',
     component: AccountComponent
   },
   {
