@@ -1,0 +1,34 @@
+<section class="my-5">
+    <h2>Se connecter</h2>
+
+    <form id="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+            <div class="form-group col">
+                <label for="login">Identifiant : </label>
+                <input type="text" class="form-control" id="login" formControlName="login" [appShowValidationErrors]="loginForm.get('login')">
+
+                <div *ngIf="login.invalid && (login.dirty || login.touched)" class="alert alert-danger my-3">
+                    <div *ngIf="login.errors.required">Veuillez renseigner votre identifiant.</div>
+                </div>
+            </div>
+            <div class="form-group col">
+                <label for="password">Mot de passe : </label>
+                <input type="password" class="form-control" id="password" formControlName="password" [appShowValidationErrors]="loginForm.get('password')">
+
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger my-3">
+                    <div *ngIf="password.errors.required">Veuillez renseigner votre mot de passe.</div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary center">Se connecter</button>
+        <div *ngIf="loginForm.invalid && formSubmited" class="alert alert-danger my-3">
+            Erreur dans la connexion : 
+            <span *ngIf="loginForm.errors && loginForm.errors.unauthorized">Identifiants invalides</span>
+            <span *ngIf="loginForm.errors && loginForm.errors.connectionError">Erreur de connexion</span>
+        </div>
+    </form>
+    <span>Token : {{ jwtToken$ | async }}</span>
+    <span>Information : Une fois que la connexion a réussie, le token est stocké dans le store et le formulaire est désactivé.</span>
+    <span>Information : Pour le test, les identifiants sont thomas / password</span>
+    <button type="button" class="btn btn-primary center" (click)="onResetToken()" >Réinitialiser le token JWT</button>
+</section>
