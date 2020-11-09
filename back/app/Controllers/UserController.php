@@ -43,7 +43,7 @@ class UserController
             ]));
         return $response
             ->withHeader('Content-Type', 'application/json')
-            ->withHeader('Authorization', $token_jwt)
+            ->withHeader('Authorization', 'Bearer ' . $token_jwt)
             ->withStatus(200);
     }
 
