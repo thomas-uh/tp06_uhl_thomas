@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 export class AccountLoginComponent implements OnInit {
 
   public formSubmited: boolean = false;
-  private authentified: boolean = false;
+  public authentified: boolean = false;
   public jwtToken$: Observable<string>;
 
   loginForm = new FormGroup({

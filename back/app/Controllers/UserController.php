@@ -38,6 +38,7 @@ class UserController
         $response->getBody()->write(json_encode([
             'success' => true,
             'user' => [
+                'id' => 1,
                 'login' => $login
                 ]  
             ]));
