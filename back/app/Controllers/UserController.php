@@ -4,11 +4,15 @@ namespace App\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-
-use Firebase\JWT\JWT;
+use Doctrine\ORM\EntityManager;
 
 class UserController
 {
+    private EntityManager $em;
+
+    public function __construct(EntityManager $em) {
+        $this->em = $em;
+    }
 
     public function login(Request $request, Response $response, array $args): Response
     {
@@ -17,7 +21,21 @@ class UserController
         $login = $data['login'] ?? "";
         $password = $data['password'] ?? "";
 
-        if ($login != $_ENV['USER_LOGIN'] || $password != $_ENV['USER_PASSWORD']) {
+        if (!preg_match("/[a-zA-Z0-9]{1,256}/",$login))   {
+            return $response
+            ->withStatus(400);
+        }
+        if (!preg_match("/[a-zA-Z0-9]{1,256}/",$password))  {
+            return $response
+            ->withStatus(400);
+        }
+
+        $clientRepo = $this->em->getRepository('Client');
+        $client = $clientRepo->findOneBy([
+            'login' => $login,
+        ]);
+
+        if ($client == null || $client->getPassword() != $password) {
             $response->getBody()->write(json_encode(['success' => false]));
 
             return $response
@@ -25,15 +43,7 @@ class UserController
                 ->withStatus(401);
         }
 
-        $issuedAt = time();
-
-        $payload = [
-            'iat' => $issuedAt,
-            'exp' => $issuedAt + 60,
-            'user_id' => 1
-        ];
-
-        $token_jwt = JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256');
+        $token_jwt = JWTTokenHelper::generateJWTToken();
 
         $response->getBody()->write(json_encode([
             'success' => true,
@@ -50,9 +60,93 @@ class UserController
 
     public function register(Request $request, Response $response, array $args): Response
     {
-        $user = $request->getParsedBody();
+        $data = $request->getParsedBody();
 
-        $response->getBody()->write(json_encode($user));
+        $lastname = $data['lastname'] ?? "";
+        $firstname = $data['firstname'] ?? "";
+        $civility = $data['civility'] ?? "";
+        $phone = $data['phone'] ?? "";
+        $email = $data['email'] ?? "";
+        $login = $data['login'] ?? "";
+        $password = $data['password'] ?? "";
+        $address = $data['address'] ?? [];
+        $street = $address['street'] ?? "";
+        $zipCode = $address['zipCode'] ?? "";
+        $city = $address['city'] ?? "";
+        $country = $address['country'] ?? "";
+
+
+        if (!preg_match("/[a-zA-Z]{1,256}/",$lastname)) return $response->withStatus(400);
+        if (!preg_match("/[a-zA-Z]{1,256}/",$firstname)) return $response->withStatus(400);
+        if (!preg_match("/[a-zA-Z]{1,30}/",$civility)) return $response->withStatus(400);
+        if (!preg_match("/[0-9]{10}/",$phone)) return $response->withStatus(400);
+        if (!preg_match("/[a-zA-Z0-9@.]{1,256}/",$email)) return $response->withStatus(400);
+        if (!preg_match("/[a-zA-Z0-9]{1,256}/",$login)) return $response->withStatus(400);
+        if (!preg_match("/[a-zA-Z0-9]{1,256}/",$password)) return $response->withStatus(400);
+        if (!preg_match("/[a-zA-Z0-9]{1,256}/",$street)) return $response->withStatus(400);
+        if (!preg_match("/[0-9]{5}/",$zipCode)) return $response->withStatus(400);
+        if (!preg_match("/[a-zA-Z]{1,256}/",$city)) return $response->withStatus(400);
+        if (!preg_match("/[a-zA-Z]{1,256}/",$country)) return $response->withStatus(400);
+
+        $user = new \Client;
+
+        $user->setLastname($lastname);
+        $user->setFirstname($firstname);
+        $user->setCivility($civility);
+        $user->setPhone($phone);
+        $user->setEmail($email);
+        $user->setStreet($street);
+        $user->setZipCode($zipCode);
+        $user->setCity($city);
+        $user->setCountry($country);
+        $user->setLogin($login);
+        $user->setPassword($password);
+        $this->em->persist($user);
+        $this->em->flush();
+
+        $response->getBody()->write(json_encode(['success' => true]));
+
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
+    }
+
+    public function getUser(Request $request, Response $response, array $args): Response
+    {
+        $login = $args['login'] ?? "";
+
+        if (!preg_match("/[a-zA-Z0-9]{1,256}/",$login)) return $response->withStatus(400);
+
+        $clientRepo = $this->em->getRepository('Client');
+        $client = $clientRepo->findOneBy([
+            'login' => $login,
+        ]);
+
+        if ($client == null) {
+            $response->getBody()->write(json_encode(['success' => false]));
+
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(401);
+        }
+
+        $result = [
+            'lastname' => $client->getLastname(),
+            'firstname' => $client->getFirstname(),
+            'civility' => $client->getCivility(),
+            'address' => [
+                'street' => $client->getStreet(),
+                'zipCode' => $client->getZipCode(),
+                'city' => $client->getCity(),
+                'country' => $client->getCountry(),
+            ],
+            'email' => $client->getEmail(),
+            'phone' => $client->getPhone(),
+            'login' => $client->getLogin()
+        ];
+
+        $response->getBody()->write(json_encode($result));
+
         return $response
             ->withHeader('Content-Type', 'application/json')
             ->withStatus(200);
