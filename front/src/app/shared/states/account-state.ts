@@ -1,14 +1,12 @@
-import { RegisterAccount } from './../actions/account-action';
+import { RegisterLogin, RegisterJWT } from './../actions/account-action';
 import { AccountStateModel } from './account-state-model';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { RegisterJWT } from '../actions/account-action';
-import { Account } from '../Account';
 
 @State<AccountStateModel>({
     name: 'account',
     defaults: {
         jwtToken: '',
-        account: null,
+        login: '',
     }
 })
 export class AccountState {
@@ -18,8 +16,8 @@ export class AccountState {
     }
 
     @Selector()
-    static getAccount(state: AccountStateModel): Account {
-        return state.account;
+    static getLogin(state: AccountStateModel): string {
+        return state.login;
     }
 
     @Action(RegisterJWT)
@@ -32,13 +30,13 @@ export class AccountState {
         });
     }
 
-    @Action(RegisterAccount)
+    @Action(RegisterLogin)
     addAccount(
         { patchState }: StateContext<AccountStateModel>,
-        { payload }: RegisterAccount
+        { payload }: RegisterLogin
     ): void {
         patchState({
-            account: payload
+            login: payload
         });
     }
 }

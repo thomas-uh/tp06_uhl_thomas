@@ -1,5 +1,4 @@
 import { AccountLoginComponent } from './account-login/account-login.component';
-import { AccountComponent } from './account/account.component';
 import { CommonModule } from '@angular/common';
 import { CustomDirectives } from './../../../directives/custom-directives.module';
 import { AccountDetailsComponent } from './account-details/account-details.component';
@@ -14,7 +13,6 @@ import { AccountComponentRoutingModule } from './account-routing.module';
   declarations: [
     AccountCreationFormComponent,
     AccountDetailsComponent,
-    AccountComponent,
     AccountLoginComponent
   ],
   imports: [

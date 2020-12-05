@@ -1,6 +1,7 @@
-import { RegisterAccount } from './../../../shared/actions/account-action';
+import { Observable, Subscription } from 'rxjs';
+import { RegisterLogin } from './../../../shared/actions/account-action';
 import { AccountService } from './../account.service';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Account } from '../../../shared/Account';
@@ -12,11 +13,14 @@ import { Store } from '@ngxs/store';
   templateUrl: './account-creation-form.component.html',
   styleUrls: ['./account-creation-form.component.scss']
 })
-export class AccountCreationFormComponent {
+export class AccountCreationFormComponent implements OnDestroy {
   public genders: string[] = [
     'Madame',
     'Monsieur'
   ];
+
+  public registerResponse$: Observable<{success: boolean, login: string}>;
+  private registerSub: Subscription = null;
 
   constructor(private router: Router, private accountService: AccountService, private store: Store) {}
 
@@ -47,6 +51,12 @@ export class AccountCreationFormComponent {
   get password(): AbstractControl { return this.accountForm.get('password'); }
   get passwordConfirmation(): AbstractControl { return this.accountForm.get('passwordConfirmation'); }
 
+  ngOnDestroy(): void {
+    if (this.registerSub != null) {
+      this.registerSub.unsubscribe();
+    }
+  }
+
   onSubmit(): void {
     if (!this.accountForm.valid) {
       return;
@@ -70,14 +80,19 @@ export class AccountCreationFormComponent {
       this.accountForm.value.password
     );
 
-    this.accountService.register(account)
-    .then((acc) => {
-      this.store.dispatch(new RegisterAccount(acc));
-      this.router.navigate(['/account/view']);
-    })
-    .catch(error => {
-      console.error('Erreur lors de la création du compte');
-    })
+    this.registerResponse$ = this.accountService.register(account);
+
+    if (this.registerSub != null) {
+      this.registerSub.unsubscribe();
+    }
+
+    this.registerSub = this.registerResponse$.subscribe(body => {
+      console.log(body);
+      if (body.success) {
+        this.store.dispatch(new RegisterLogin(body.login));
+        this.router.navigate(['/account/view']);
+      }
+    });
   }
 }
 

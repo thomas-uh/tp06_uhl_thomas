@@ -43,14 +43,11 @@ class UserController
                 ->withStatus(401);
         }
 
-        $token_jwt = JWTTokenHelper::generateJWTToken();
+        $token_jwt = JWTTokenHelper::generateJWTToken($login);
 
         $response->getBody()->write(json_encode([
             'success' => true,
-            'user' => [
-                'id' => 1,
-                'login' => $login
-                ]  
+            'login' => $login 
             ]));
         return $response
             ->withHeader('Content-Type', 'application/json')
@@ -60,7 +57,9 @@ class UserController
 
     public function register(Request $request, Response $response, array $args): Response
     {
-        $data = $request->getParsedBody();
+        $body = $request->getParsedBody();
+        $json = $body['account'] ?? "";
+        $data = json_decode($json, true);
 
         $lastname = $data['lastname'] ?? "";
         $firstname = $data['firstname'] ?? "";
@@ -74,12 +73,12 @@ class UserController
         $zipCode = $address['zipCode'] ?? "";
         $city = $address['city'] ?? "";
         $country = $address['country'] ?? "";
-
+        
 
         if (!preg_match("/[a-zA-Z]{1,256}/",$lastname)) return $response->withStatus(400);
         if (!preg_match("/[a-zA-Z]{1,256}/",$firstname)) return $response->withStatus(400);
         if (!preg_match("/[a-zA-Z]{1,30}/",$civility)) return $response->withStatus(400);
-        if (!preg_match("/[0-9]{10}/",$phone)) return $response->withStatus(400);
+        if (!preg_match("/[+0-9 ]{17}/",$phone)) return $response->withStatus(400);
         if (!preg_match("/[a-zA-Z0-9@.]{1,256}/",$email)) return $response->withStatus(400);
         if (!preg_match("/[a-zA-Z0-9]{1,256}/",$login)) return $response->withStatus(400);
         if (!preg_match("/[a-zA-Z0-9]{1,256}/",$password)) return $response->withStatus(400);
@@ -104,10 +103,16 @@ class UserController
         $this->em->persist($user);
         $this->em->flush();
 
-        $response->getBody()->write(json_encode(['success' => true]));
+        $response->getBody()->write(json_encode([
+            'success' => true,
+            'login' => $login
+            ]));
+
+        $token_jwt = JWTTokenHelper::generateJWTToken($login);
 
         return $response
             ->withHeader('Content-Type', 'application/json')
+            ->withHeader('Authorization', 'Bearer ' . $token_jwt)
             ->withStatus(200);
     }
 
@@ -147,8 +152,11 @@ class UserController
 
         $response->getBody()->write(json_encode($result));
 
+        $token_jwt = JWTTokenHelper::generateJWTToken($login);
+
         return $response
             ->withHeader('Content-Type', 'application/json')
+            ->withHeader('Authorization', 'Bearer ' . $token_jwt)
             ->withStatus(200);
     }
 }

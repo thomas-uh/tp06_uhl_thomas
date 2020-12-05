@@ -1,9 +1,9 @@
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AccountState } from './../../../shared/states/account-state';
-import { Address } from '../../../shared/Address';
 import { Account } from '../../../shared/Account';
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
+import { AccountService } from '../account.service';
 
 @Component({
   selector: 'app-account-details',
@@ -12,12 +12,22 @@ import { Store } from '@ngxs/store';
 })
 export class AccountDetailsComponent implements OnInit {
 
+  private login$: Observable<string>;
+  private loginSub: Subscription = null;
   public account$: Observable<Account>;
 
-  constructor(private store: Store) { }
+  constructor(private accountService: AccountService, private store: Store) { }
 
   ngOnInit(): void {
-   this.account$ = this.store.select(AccountState.getAccount);
+    this.login$ = this.store.select(AccountState.getLogin);
+
+    if (this.loginSub != null) {
+      this.loginSub.unsubscribe();
+    }
+
+    this.login$.subscribe((login: string) => {
+      this.account$ = this.accountService.getUser("thomas");
+    });
   }
 
 }

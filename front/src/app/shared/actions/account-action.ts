@@ -5,7 +5,7 @@ export class RegisterJWT {
     constructor(public payload: string) {}
 }
 
-export class RegisterAccount {
-    static readonly type = '[Account] Add Account';
-    constructor(public payload: Account) {}
+export class RegisterLogin {
+    static readonly type = '[Account] Add Login';
+    constructor(public payload: string) {}
 }

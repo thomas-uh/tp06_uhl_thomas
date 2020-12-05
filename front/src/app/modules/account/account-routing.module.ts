@@ -1,5 +1,4 @@
 import { AccountLoginComponent } from './account-login/account-login.component';
-import { AccountComponent } from './account/account.component';
 import { AccountCreationFormComponent } from './account-creation-form/account-creation-form.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -7,10 +6,6 @@ import { AccountDetailsComponent } from './account-details/account-details.compo
 
 
 const routes: Routes = [
-  {
-    path: 'main',
-    component: AccountComponent
-  },
   {
     path: 'view',
     component: AccountDetailsComponent

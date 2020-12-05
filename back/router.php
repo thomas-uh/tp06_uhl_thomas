@@ -12,8 +12,8 @@ use App\Controllers\ErrorController;
 
 return function(App $app) {
     // Error routing
-    $errorMiddleware = $app->addErrorMiddleware(true, true, true);
-    $errorMiddleware->setDefaultErrorHandler((new ErrorController())->getHandlerFunction($app));
+    // $errorMiddleware = $app->addErrorMiddleware(true, true, true);
+    // $errorMiddleware->setDefaultErrorHandler((new ErrorController())->getHandlerFunction($app));
 
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
         return $response;
@@ -35,7 +35,7 @@ return function(App $app) {
         "algorithm" => ["HS256"],
         "secret" => $_ENV['JWT_SECRET'],
         "path" => ["/"],
-        "ignore" => ["/users/register","/users/login"],
+        "ignore" => ["/users/register","/users/login", "/users/account/"],
         "error" => function ($response, $arguments) {
             $data = array('ERREUR' => 'Connexion', 'ERREUR' => 'JWT Non valide');
             $response = $response->withStatus(401);

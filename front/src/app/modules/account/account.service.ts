@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from './../../../environments/environment';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -38,18 +40,20 @@ export class AccountService {
       ).toPromise();
   }
 
-  register(account: Account): Promise<Account> {
+  register(account: Account): Observable<{success: boolean, login: string}> {
     let body = new URLSearchParams();
     body.set('account', JSON.stringify(account));
 
-    return this.http.post<{account: string}>(
+    return this.http.post<{success: boolean, login: string}>(
       environment.backendAPI + 'users/register',
       body.toString(),
       {
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
       }
-    )
-    .toPromise()
-    .then<Account>(val => JSON.parse(val.account));
+    );
+  }
+
+  getUser(login: string): Observable<Account> {
+    return this.http.get<Account>(environment.backendAPI + 'users/account/' + login);
   }
 }

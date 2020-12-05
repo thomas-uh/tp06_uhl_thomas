@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   backendClient : '/assets/products.json',
-  backendAPI : 'https://tp05-thomas-back.herokuapp.com/'
+  backendAPI : 'http://localhost:8080/'
 };
 
 /*
