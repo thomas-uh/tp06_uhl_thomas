@@ -39,8 +39,12 @@ export class ApiAccountInterceptor implements HttpInterceptor {
 
     private handleResponse(response: HttpResponse<any>): void {
         const jwtToken: string = response.headers.get('authorization');
+
+        if (jwtToken === null) {
+            return;
+        }
+
         const parts: string[] = jwtToken.split(' ');
-        console.log(parts);
         if (parts.length === 2) {
             this.store.dispatch(new RegisterJWT(parts[1]));
         }
@@ -48,6 +52,11 @@ export class ApiAccountInterceptor implements HttpInterceptor {
 
     private handleError(error: HttpErrorResponse): void {
         switch (error.status) {
+            case 0:
+                this.store.dispatch(new RegisterJWT(''));
+                this.store.dispatch(new RegisterLogin(''));
+                this.router.navigate(['/account/login']);
+                break;
             case 401:
                 this.store.dispatch(new RegisterJWT(''));
                 this.store.dispatch(new RegisterLogin(''));

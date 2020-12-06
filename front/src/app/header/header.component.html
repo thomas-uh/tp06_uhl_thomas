@@ -14,13 +14,13 @@
           <li class="nav-item active">
             <a class="nav-link" routerLink="/" routerLinkActive="active">Accueil</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!(login$ | async )">
             <a class="nav-link" routerLink="/account/register" routerLinkActive="active">Créer un compte</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!(login$ | async )">
             <a class="nav-link" routerLink="/account/login" routerLinkActive="active">Se connecter</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="(login$ | async )">
             <a class="nav-link" routerLink="/account/view" routerLinkActive="active">Mon compte</a>
           </li>
           <li class="nav-item">
@@ -32,8 +32,8 @@
         </ul>
       </div>
 
-      <form class="form-inline">
-        <span class="mx-3">Connecté en tant que : {{ login$ | async }}</span>
+      <form class="form-inline" *ngIf="(login$ | async ) as login">
+        <span class="mx-3">Connecté en tant que : {{ login }}</span>
         <button class="btn btn-sm btn-outline-danger" type="button" (click)="disconnect()">Se déconnecter</button>
       </form>
     </nav>

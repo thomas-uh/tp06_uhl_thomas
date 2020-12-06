@@ -3,12 +3,14 @@ import { AccountCreationFormComponent } from './account-creation-form/account-cr
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AccountDetailsComponent } from './account-details/account-details.component';
+import { AuthGuard } from './auth-guard.service';
 
 
 const routes: Routes = [
   {
     path: 'view',
-    component: AccountDetailsComponent
+    component: AccountDetailsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'register',

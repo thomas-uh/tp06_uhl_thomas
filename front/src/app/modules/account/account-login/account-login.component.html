@@ -21,8 +21,8 @@
             </div>
         </div>
         <button type="submit" class="btn btn-primary center">Se connecter</button>
-        <div *ngIf="loginForm.invalid && formSubmited" class="alert alert-danger my-3">
-            Erreur dans la connexion : 
+        <div *ngIf="(loginResponse$ | async ) as response" class="alert alert-danger my-3">
+            <span *ngIf="!response.success">Erreur lors de la connexion</span>
         </div>
     </form>
     <span>Information : Pour le test, les identifiants sont thomas / password</span>
