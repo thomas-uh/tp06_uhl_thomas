@@ -11,33 +11,19 @@ import { Account } from './../../shared/Account';
 export class AccountService {
   constructor(private http: HttpClient) { }
 
-  login(login: string, password: string)
-    : Promise<HttpResponse<{
-      success: boolean,
-      user: {
-        id: number,
-        login: string
-      }
-    }>>
+  login(login: string, password: string): Observable<{ success: boolean, login: string }>
   {
     let body = new URLSearchParams();
     body.set('login', login);
     body.set('password', password);
 
-    return this.http.post<{
-      success: boolean,
-      user: {
-        id: number,
-        login: string
-      }
-    }>(
+    return this.http.post<{ success: boolean, login: string }>(
       environment.backendAPI + 'users/login',
       body.toString(),
       {
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        observe: 'response'
       }
-      ).toPromise();
+      );
   }
 
   register(account: Account): Observable<{success: boolean, login: string}> {

@@ -23,12 +23,7 @@
         <button type="submit" class="btn btn-primary center">Se connecter</button>
         <div *ngIf="loginForm.invalid && formSubmited" class="alert alert-danger my-3">
             Erreur dans la connexion : 
-            <span *ngIf="loginForm.errors && loginForm.errors.unauthorized">Identifiants invalides</span>
-            <span *ngIf="loginForm.errors && loginForm.errors.connectionError">Erreur de connexion</span>
         </div>
     </form>
-    <span>Token : {{ jwtToken$ | async }}</span>
-    <span>Information : Une fois que la connexion a réussie, le token est stocké dans le store et le formulaire est désactivé.</span>
     <span>Information : Pour le test, les identifiants sont thomas / password</span>
-    <button type="button" class="btn btn-primary center" (click)="onResetToken()" >Réinitialiser le token JWT</button>
 </section>

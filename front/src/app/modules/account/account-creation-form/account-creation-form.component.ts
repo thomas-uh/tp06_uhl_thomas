@@ -87,7 +87,6 @@ export class AccountCreationFormComponent implements OnDestroy {
     }
 
     this.registerSub = this.registerResponse$.subscribe(body => {
-      console.log(body);
       if (body.success) {
         this.store.dispatch(new RegisterLogin(body.login));
         this.router.navigate(['/account/view']);

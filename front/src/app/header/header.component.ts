@@ -1,3 +1,4 @@
+import { RegisterJWT, RegisterLogin } from './../shared/actions/account-action';
 import { AccountState } from './../shared/states/account-state';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
@@ -22,6 +23,7 @@ export class HeaderComponent implements OnInit {
   }
 
   disconnect(): void {
-
+    this.store.dispatch(new RegisterLogin(''));
+    this.store.dispatch(new RegisterJWT(''));
   }
 }

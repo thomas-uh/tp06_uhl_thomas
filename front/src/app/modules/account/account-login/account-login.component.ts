@@ -1,22 +1,24 @@
 import { AccountState } from './../../../shared/states/account-state';
-import { browser } from 'protractor';
-import { RegisterJWT } from './../../../shared/actions/account-action';
+import { RegisterJWT, RegisterLogin } from './../../../shared/actions/account-action';
 import { AccountService } from './../account.service';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-login',
   templateUrl: './account-login.component.html',
   styleUrls: ['./account-login.component.scss']
 })
-export class AccountLoginComponent implements OnInit {
+export class AccountLoginComponent implements OnDestroy {
 
   public formSubmited: boolean = false;
   public authentified: boolean = false;
-  public jwtToken$: Observable<string>;
+
+  public loginResponse$: Observable<{ success: boolean, login: string }>;
+  private loginSub: Subscription = null;
 
   loginForm = new FormGroup({
     login: new FormControl('', [Validators.required]),
@@ -26,43 +28,27 @@ export class AccountLoginComponent implements OnInit {
   get login(): AbstractControl { return this.loginForm.get('login'); }
   get password(): AbstractControl { return this.loginForm.get('password'); }
 
-  constructor(private accountServive: AccountService, private store: Store) { }
+  constructor(private accountServive: AccountService, private store: Store, private router: Router) { }
 
-  ngOnInit(): void {
-    this.jwtToken$ = this.store.select(AccountState.getJWTToken);
+  ngOnDestroy(): void {
+    if (this.loginSub != null) {
+      this.loginSub.unsubscribe();
+    }
   }
 
   onSubmit(): void {
-    if (this.authentified) {
-      return;
+
+    this.loginResponse$ = this.accountServive.login(this.loginForm.value.login, this.loginForm.value.password);
+
+    if (this.loginSub != null) {
+      this.loginSub.unsubscribe();
     }
 
-    this.formSubmited = true;
-
-    this.accountServive.login(
-      this.loginForm.value.login,
-      this.loginForm.value.password
-    )
-    .then(response => {
-      if (response.body.success) {
-        this.store.dispatch(new RegisterJWT(response.headers.get('authorization')));
-        this.authentified = true;
-      } else {
-        this.loginForm.setErrors({
-          connectionError: true
-        });
+    this.loginSub = this.loginResponse$.subscribe(body => {
+      if (body.success) {
+        this.store.dispatch(new RegisterLogin(body.login));
+        this.router.navigate(['/account/view']);
       }
-    })
-    .catch(error => {
-      this.loginForm.setErrors({
-        unauthorized: true
-      });
     });
   }
-
-  onResetToken(): void {
-    this.store.dispatch(new RegisterJWT(''));
-    this.authentified = false;
-  }
-
 }

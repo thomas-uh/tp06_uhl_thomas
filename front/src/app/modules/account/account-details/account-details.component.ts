@@ -1,9 +1,10 @@
-import { Observable, Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { AccountState } from './../../../shared/states/account-state';
 import { Account } from '../../../shared/Account';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { AccountService } from '../account.service';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-account-details',
@@ -12,22 +13,24 @@ import { AccountService } from '../account.service';
 })
 export class AccountDetailsComponent implements OnInit {
 
-  private login$: Observable<string>;
-  private loginSub: Subscription = null;
   public account$: Observable<Account>;
 
   constructor(private accountService: AccountService, private store: Store) { }
 
   ngOnInit(): void {
-    this.login$ = this.store.select(AccountState.getLogin);
-
-    if (this.loginSub != null) {
-      this.loginSub.unsubscribe();
-    }
-
-    this.login$.subscribe((login: string) => {
-      this.account$ = this.accountService.getUser("thomas");
-    });
+    this.account$ = this.store.select(AccountState.getLogin)
+      .pipe(
+        mergeMap(
+          (login: string): Observable<Account> => {
+            if (login !== '') {
+              return this.accountService.getUser(login);
+            }
+            else {
+              return of(null);
+            }
+          }
+        )
+      );
   }
 
 }
