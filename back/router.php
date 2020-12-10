@@ -12,8 +12,8 @@ use App\Controllers\ErrorController;
 
 return function(App $app) {
     // Error routing
-    // $errorMiddleware = $app->addErrorMiddleware(true, true, true);
-    // $errorMiddleware->setDefaultErrorHandler((new ErrorController())->getHandlerFunction($app));
+    $errorMiddleware = $app->addErrorMiddleware(true, true, true);
+    $errorMiddleware->setDefaultErrorHandler((new ErrorController())->getHandlerFunction($app));
 
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
         return $response;

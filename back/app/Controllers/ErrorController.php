@@ -18,7 +18,7 @@ class ErrorController {
             bool $logErrorDetails,
             ?LoggerInterface $logger = null
         ) use ($app) {
-            $payload = $this->getErrorPayload($exception);
+            $payload = ['Error message' => $exception->getMessage()];
     
             $response = $app->getResponseFactory()->createResponse();
             $response->getBody()->write(
@@ -28,14 +28,4 @@ class ErrorController {
             return $response;
         };
     }
-
-    private function getErrorPayload(Throwable $exception): array {
-        if ($exception->getCode() == 404) {
-            return ['Not Found Error' => $exception->getMessage()];
-        }
-        else {
-            return ['Error message' => $exception->getMessage()];
-        }
-    }
-
 }

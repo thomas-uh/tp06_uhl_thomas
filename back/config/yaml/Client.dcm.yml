@@ -11,6 +11,9 @@ Client:
             column: id_user
             generator:
                 strategy: SEQUENCE
+    uniqueConstraints:
+        login_un:
+            columns: login
     fields:
         lastname:
             type: string

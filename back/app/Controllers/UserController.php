@@ -87,6 +87,13 @@ class UserController
         if (!preg_match("/[a-zA-Z]{1,256}/",$city)) return $response->withStatus(400);
         if (!preg_match("/[a-zA-Z]{1,256}/",$country)) return $response->withStatus(400);
 
+        $clientRepo = $this->em->getRepository('Client');
+        $client = $clientRepo->findOneBy([
+            'login' => $login,
+        ]);
+        
+        if ($client != null) return $response->withStatus(400);
+
         $user = new \Client;
 
         $user->setLastname($lastname);
